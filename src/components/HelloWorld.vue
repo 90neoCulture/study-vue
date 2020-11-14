@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <k-form :model="form" :rules="rules">
+    <k-form :model="form" :rules="rules" ref="loginForm">
       <k-form-item label="姓名" prop="username">
         <k-input v-model="form.username" type="text" placeholder="哈哈哈"></k-input>
         <p>{{form.username}}</p>
@@ -8,6 +8,9 @@
       <k-form-item label="密码" prop="password">
         <k-input v-model="form.password" type="password"></k-input>
         <p>{{form.password}}</p>
+      </k-form-item>
+      <k-form-item>
+        <button @click="login">登录</button>
       </k-form-item>
     </k-form>
   </div>
@@ -19,11 +22,6 @@ import KFormItem from "./KFormItem";
 import KInput from "./KInput";
 export default {
   name: "HelloWorld",
-  provide(){
-    return {
-      // rules
-    }
-  },
   components: {
     KForm,
     KFormItem,
@@ -41,7 +39,18 @@ export default {
         }
     }
   },
-  
+  methods: {
+    login() {
+      this.$refs['loginForm'].validate(valid => {
+        if(valid){
+          alert('submit');
+        } else {
+          console.log('error submit!')
+          return false;
+        }
+      })
+    }
+  },
 };
 </script>
 

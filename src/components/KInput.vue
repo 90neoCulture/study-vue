@@ -5,7 +5,7 @@
 
 <script>
 export default {
-    inheritAttrs: false,
+    inheritAttrs: false, // 设置为false避免设置到根元素上
     props: {
         value: {
             type: String,
@@ -16,6 +16,8 @@ export default {
         onInput(e) {
             // 派发一个input事件即可
             this.$emit('input', e.target.value);
+            // 通知父级执行校验
+            this.$parent.$emit('validate');
         }
     }
 };

@@ -5,7 +5,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props: {
+        model: {
+            type: Object,
+            required: true
+        },
+        rules: {
+            type: Object
+        }
+    }
+};
 </script>
 
 <style></style>

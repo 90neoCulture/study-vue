@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <k-form>
-      <k-form-item>
+    <k-form :model="form" :rules="rules">
+      <k-form-item label="姓名" prop="username">
         <k-input v-model="form.username" type="text" placeholder="哈哈哈"></k-input>
         <p>{{form.username}}</p>
       </k-form-item>
-      <k-form-item>
+      <k-form-item label="密码" prop="password">
         <k-input v-model="form.password" type="password"></k-input>
         <p>{{form.password}}</p>
       </k-form-item>
@@ -19,6 +19,11 @@ import KFormItem from "./KFormItem";
 import KInput from "./KInput";
 export default {
   name: "HelloWorld",
+  provide(){
+    return {
+      // rules
+    }
+  },
   components: {
     KForm,
     KFormItem,
@@ -29,7 +34,11 @@ export default {
       form: {
         username: '',
         password: '',
-      }
+      },
+      rules: {
+          username: [{ required: true, message: "请输入用户名称" }],
+          password: [{ required: true, message: "请输入密码" }]
+        }
     }
   },
   

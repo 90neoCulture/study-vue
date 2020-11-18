@@ -2,11 +2,11 @@
   <div class="hello">
     <k-form :model="form" :rules="rules" ref="loginForm">
       <k-form-item label="姓名" prop="username">
-        <k-input v-model="form.username" type="text" placeholder="哈哈哈"></k-input>
+        <k-input v-model="form.username" type="text" placeholder="请输入姓名"></k-input>
         <p>{{form.username}}</p>
       </k-form-item>
       <k-form-item label="密码" prop="password">
-        <k-input v-model="form.password" type="password"></k-input>
+        <k-input v-model="form.password" type="password" placeholder="请输入密码"></k-input>
         <p>{{form.password}}</p>
       </k-form-item>
       <k-form-item>
@@ -20,6 +20,7 @@
 import KForm from "./KForm";
 import KFormItem from "./KFormItem";
 import KInput from "./KInput";
+import Notice from "./Notice";
 export default {
   name: "HelloWorld",
   components: {
@@ -42,12 +43,18 @@ export default {
   methods: {
     login() {
       this.$refs['loginForm'].validate(valid => {
-        if(valid){
-          alert('submit');
-        } else {
-          console.log('error submit!')
-          return false;
-        }
+        const notice = this.$create(Notice, {
+          title: "消息提醒",
+          message: valid ? "请求登录！":"校验失败",
+          duration: 1000
+        });
+        notice.show();
+        // if(valid){
+        //   alert('submit');
+        // } else {
+        //   console.log('error submit!')
+        //   return false;
+        // }
       })
     }
   },
